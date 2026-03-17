@@ -14,6 +14,7 @@ app.use((req, res) => {
   res.send(readFileSync(join(__dirname, 'dist', 'index.html'), 'utf-8'));
 });
 
-app.listen(5003, '0.0.0.0', () => {
-  console.log('AIOptimizer frontend running on http://0.0.0.0:5003');
+const PORT = process.env.PORT || 5003;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`AIOptimizer frontend running on http://0.0.0.0:${PORT}`);
 });
