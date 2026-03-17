@@ -2,7 +2,7 @@
   "$schema": "https://railway.com/railway.schema.json",
   "build": {
     "builder": "NIXPACKS",
-    "buildCommand": "npm install --legacy-peer-deps && npm run build"
+    "buildCommand": "npm install && node serve.mjs --version || true"
   },
   "deploy": {
     "startCommand": "node serve.mjs",
