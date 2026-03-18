@@ -31,6 +31,12 @@ export const login = (email: string, password: string) =>
 export const signup = (name: string, email: string, password: string) =>
   request('POST', '/auth/signup', { name, email, password });
 
+export const forgotPassword = (email: string) =>
+  request('POST', '/auth/forgot-password', { email });
+
+export const resetPassword = (token: string, newPassword: string) =>
+  request('POST', '/auth/reset-password', { token, newPassword });
+
 // Dashboard
 export const getDashboard = (duration = '30') =>
   request('GET', `/dashboard?duration=${duration}`);
