@@ -6,7 +6,7 @@ import { SpendChart } from "@/components/SpendChart";
 import { ModelMixChart } from "@/components/ModelMixChart";
 import { Recommendations } from "@/components/Recommendations";
 import { RecentLogs } from "@/components/RecentLogs";
-import { CalendarDays } from "lucide-react";
+import { CalendarDays, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getDashboard, login, setToken, getToken } from "@/lib/api";
@@ -39,9 +39,8 @@ const Index = () => {
   }, []);
 
   // Load dashboard data
-  useEffect(() => {
+  const fetchDashboard = () => {
     if (!authed) return;
-    setLoading(true);
     getDashboard(duration)
       .then((data) => {
         setDashboardData(data);
@@ -51,6 +50,15 @@ const Index = () => {
         console.error(err);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    fetchDashboard();
+
+    // Auto-refresh every 30 seconds
+    const interval = setInterval(fetchDashboard, 30000);
+    return () => clearInterval(interval);
   }, [duration, authed]);
 
   const totalSpend = parseFloat(dashboardData?.totalSpend) || 0;
@@ -72,6 +80,21 @@ const Index = () => {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground mr-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                Live
+              </div>
+              <button
+                onClick={() => { setLoading(true); fetchDashboard(); }}
+                className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground px-2 py-1 rounded hover:bg-muted transition-colors"
+                title="Refresh now"
+              >
+                <RefreshCw className="h-3 w-3" />
+                Refresh
+              </button>
               <CalendarDays className="h-3.5 w-3.5 text-muted-foreground" />
               <Select value={duration} onValueChange={setDuration}>
                 <SelectTrigger className="w-36 h-8 text-xs">
