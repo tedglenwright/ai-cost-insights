@@ -64,7 +64,7 @@ const Index = () => {
   const totalSpend = parseFloat(dashboardData?.totalSpend) || 0;
   const breakdown = dashboardData?.breakdown || [];
   const recommendations = dashboardData?.recommendations || [];
-  const callCount = breakdown.reduce((sum: number, r: any) => sum + (r.callCount || 0), 0);
+  const callCount = breakdown.reduce((sum: number, r: any) => sum + (parseInt((parseInt(r.callcount || r.callCount || 0)) || r.callcount || 0)), 0);
   const potentialSavings = parseFloat(dashboardData?.totalSavingsPotential) || 0;
 
   return (

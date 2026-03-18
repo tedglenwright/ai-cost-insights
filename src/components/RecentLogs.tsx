@@ -42,13 +42,13 @@ export function RecentLogs({ breakdown = [] }: RecentLogsProps) {
                   </Badge>
                 </td>
                 <td className="py-2.5 pr-4 font-mono font-medium text-foreground truncate max-w-[180px]">{row.model}</td>
-                <td className="py-2.5 pr-4 text-right font-mono text-muted-foreground">{(row.callCount || 0).toLocaleString()}</td>
-                <td className="py-2.5 pr-4 text-right font-mono text-foreground">${(parseFloat(row.totalCost) || 0).toFixed(4)}</td>
+                <td className="py-2.5 pr-4 text-right font-mono text-muted-foreground">{(parseInt((parseInt(row.callcount || row.callCount || 0)) || row.callcount || 0)).toLocaleString()}</td>
+                <td className="py-2.5 pr-4 text-right font-mono text-foreground">${(parseFloat((parseFloat(row.totalcost || row.totalCost || 0))) || 0).toFixed(4)}</td>
                 <td className="py-2.5 pr-4 text-right font-mono text-muted-foreground">
-                  ${row.callCount > 0 ? (parseFloat(row.totalCost) / row.callCount).toFixed(6) : "0.00"}
+                  ${(parseInt(row.callcount || row.callCount || 0)) > 0 ? (parseFloat((parseFloat(row.totalcost || row.totalCost || 0))) / (parseInt(row.callcount || row.callCount || 0))).toFixed(6) : "0.00"}
                 </td>
                 <td className="py-2.5 text-right font-mono text-muted-foreground">
-                  {row.avgLatency ? `${parseInt(row.avgLatency)}ms` : "N/A"}
+                  {(row.avglatency || row.avgLatency) ? `${parseInt((row.avglatency || row.avgLatency))}ms` : "N/A"}
                 </td>
               </tr>
             ))}

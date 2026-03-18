@@ -42,7 +42,7 @@ export function SpendChart({ breakdown = [], duration = "30" }: SpendChartProps)
   const chartData = breakdown.map((row: any, i: number) => ({
     model: abbreviateModel(row.model),
     fullModel: row.model,
-    spend: parseFloat(row.totalCost) || 0,
+    spend: parseFloat((parseFloat(row.totalcost || row.totalCost || 0))) || 0,
     color: COLORS[i % COLORS.length],
   }));
 

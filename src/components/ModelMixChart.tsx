@@ -14,12 +14,12 @@ interface ModelMixChartProps {
 }
 
 export function ModelMixChart({ breakdown = [] }: ModelMixChartProps) {
-  const totalCost = breakdown.reduce((sum, r) => sum + (parseFloat(r.totalCost) || 0), 0);
+  const totalCost = breakdown.reduce((sum, r) => sum + (parseFloat((parseFloat(r.totalcost || r.totalCost || 0))) || 0), 0);
 
   const modelMix = breakdown.map((row, i) => ({
     name: row.model,
-    value: totalCost > 0 ? Math.round((parseFloat(row.totalCost) / totalCost) * 100) : 0,
-    cost: parseFloat(row.totalCost) || 0,
+    value: totalCost > 0 ? Math.round((parseFloat((parseFloat(row.totalcost || row.totalCost || 0))) / totalCost) * 100) : 0,
+    cost: parseFloat((parseFloat(row.totalcost || row.totalCost || 0))) || 0,
     color: COLORS[i % COLORS.length],
   }));
 
