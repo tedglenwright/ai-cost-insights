@@ -14,7 +14,7 @@ const Index = () => {
   useEffect(() => {
     const init = async () => {
       if (!getToken()) {
-        const data = await login("ted@aioptimizer.demo", "Demo1234!");
+        const data = await login("ted@glenwright.com", "Demo1234!");
         setToken(data.token);
       }
       const dash = await getDashboard(duration);

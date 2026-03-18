@@ -29,7 +29,7 @@ const Index = () => {
   // Auto-login with demo account
   useEffect(() => {
     if (!getToken()) {
-      login("ted@aioptimizer.demo", "Demo1234!")
+      login("ted@glenwright.com", "Demo1234!")
         .then((data) => {
           setToken(data.token);
           setAuthed(true);

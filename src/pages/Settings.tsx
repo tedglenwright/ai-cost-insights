@@ -19,7 +19,7 @@ export default function Settings() {
 
   const loadKeys = async () => {
     if (!getToken()) {
-      const data = await login("ted@aioptimizer.demo", "Demo1234!");
+      const data = await login("ted@glenwright.com", "Demo1234!");
       setToken(data.token);
     }
     const data = await getKeys();
