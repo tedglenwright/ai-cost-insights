@@ -26,10 +26,11 @@ export default function Logs() {
 
   useEffect(() => {
     const init = async () => {
-      if (!getToken()) {
+      // Always re-login to ensure fresh token
+      try {
         const data = await login("ted@glenwright.com", "Demo1234!");
         setToken(data.token);
-      }
+      } catch(e) { console.error(e); }
       const data = await getDrilldown("day", duration);
       setRows(data.rows || []);
       setLoading(false);

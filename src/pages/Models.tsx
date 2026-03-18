@@ -13,10 +13,7 @@ const Index = () => {
 
   useEffect(() => {
     const init = async () => {
-      if (!getToken()) {
-        const data = await login("ted@glenwright.com", "Demo1234!");
-        setToken(data.token);
-      }
+      try { const data = await login("ted@glenwright.com", "Demo1234!"); setToken(data.token); } catch(e) { console.error(e); }
       const dash = await getDashboard(duration);
       setBreakdown(dash.breakdown || []);
       setLoading(false);
