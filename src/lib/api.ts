@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'https://aioptimizer-production.up.railway.app/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://aioptimizer-api-production.up.railway.app/api';
 
 let authToken = localStorage.getItem('authToken');
 
