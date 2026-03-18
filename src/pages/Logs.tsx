@@ -121,7 +121,7 @@ export default function Logs() {
                               ? <ChevronDown className="h-3.5 w-3.5" />
                               : <ChevronRight className="h-3.5 w-3.5" />}
                           </td>
-                          <td className="py-2.5 pr-4 font-mono font-medium">{new Date(row.label + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                          <td className="py-2.5 pr-4 font-mono font-medium">{new Date(row.label).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</td>
                           <td className="py-2.5 pr-4 text-right font-mono text-muted-foreground">{(row.calls || 0).toLocaleString()}</td>
                           <td className="py-2.5 pr-4 text-right font-mono">${(row.cost || 0).toFixed(4)}</td>
                           <td className="py-2.5 text-right font-mono text-muted-foreground">{((row.tokens || 0) / 1000).toFixed(1)}K</td>
