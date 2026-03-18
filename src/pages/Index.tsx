@@ -9,7 +9,7 @@ import { RecentLogs } from "@/components/RecentLogs";
 import { CalendarDays, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { getDashboard, login, setToken, getToken } from "@/lib/api";
+import { getDashboard, login, setToken, getToken, clearToken } from "@/lib/api";
 
 const DURATION_LABELS: Record<string, string> = {
   "1": "Today",
@@ -43,13 +43,13 @@ const Index = () => {
 
   useEffect(() => {
     const doInit = async () => {
-      if (!getToken()) {
-        try {
-          const data = await login("ted@glenwright.com", "Demo1234!");
-          setToken(data.token);
-          setAuthed(true);
-        } catch(e) { console.error(e); }
-      }
+      // Always re-login to ensure token is fresh
+      try {
+        clearToken();
+        const data = await login("ted@glenwright.com", "Demo1234!");
+        setToken(data.token);
+        setAuthed(true);
+      } catch(e) { console.error(e); }
       setLoading(true);
       fetchDashboard();
     };

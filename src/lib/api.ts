@@ -2,6 +2,11 @@ const API_BASE = import.meta.env.VITE_API_URL || 'https://aioptimizer-api-produc
 
 let authToken = localStorage.getItem('authToken');
 
+export function clearToken() {
+  authToken = null;
+  localStorage.removeItem('authToken');
+}
+
 export function setToken(token: string) {
   authToken = token;
   localStorage.setItem('authToken', token);
