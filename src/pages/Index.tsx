@@ -27,20 +27,9 @@ const Index = () => {
   const [authed, setAuthed] = useState(!!getToken());
 
   // Auto-login with demo account
-  useEffect(() => {
-    if (!getToken()) {
-      login("ted@glenwright.com", "Demo1234!")
-        .then((data) => {
-          setToken(data.token);
-          setAuthed(true);
-        })
-        .catch(console.error);
-    }
-  }, []);
-
-  // Load dashboard data
+  // Load dashboard data — token-based, no authed state needed
   const fetchDashboard = () => {
-    if (!authed) return;
+    if (!getToken()) return;
     getDashboard(duration)
       .then((data) => {
         setDashboardData(data);
@@ -51,6 +40,21 @@ const Index = () => {
         setLoading(false);
       });
   };
+
+  useEffect(() => {
+    const doInit = async () => {
+      if (!getToken()) {
+        try {
+          const data = await login("ted@glenwright.com", "Demo1234!");
+          setToken(data.token);
+          setAuthed(true);
+        } catch(e) { console.error(e); }
+      }
+      setLoading(true);
+      fetchDashboard();
+    };
+    doInit();
+  }, []);
 
   useEffect(() => {
     setLoading(true);
