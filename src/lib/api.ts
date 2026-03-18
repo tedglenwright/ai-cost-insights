@@ -1,5 +1,12 @@
 const API_BASE = import.meta.env.VITE_API_URL || 'https://aioptimizer-api-production.up.railway.app/api';
 
+// Version bump clears stale tokens from old DB
+const APP_VERSION = 'v3';
+if (localStorage.getItem('appVersion') !== APP_VERSION) {
+  localStorage.clear();
+  localStorage.setItem('appVersion', APP_VERSION);
+}
+
 let authToken = localStorage.getItem('authToken');
 
 export function clearToken() {
